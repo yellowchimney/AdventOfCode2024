@@ -3,12 +3,14 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-session_cookie = os.getenv('session_cookie')
+session_cookie = os.getenv("session_cookie")
+
 
 def is_safe(lst):
     return all(0 < (lst[i + 1] - lst[i]) <= 3 for i in range(len(lst) - 1)) or all(
         0 < (lst[i] - lst[i + 1]) <= 3 for i in range(len(lst) - 1)
     )
+
 
 def count_safe_reports():
     response = requests.get(

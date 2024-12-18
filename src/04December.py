@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-session_cookie = os.getenv('session_cookie')
+session_cookie = os.getenv("session_cookie")
+
 
 def get_input():
     response = requests.get(
@@ -14,6 +15,7 @@ def get_input():
     lines = data.strip().split("\n")
     return lines
 
+
 def count_horizontal():
     lines = get_input()
     count = 0
@@ -21,41 +23,44 @@ def count_horizontal():
         if "XMAS" or "SAMX" in line:
             occurences_xmas = line.count("XMAS")
             occurences_samx = line.count("SAMX")
-            count += (occurences_samx + occurences_xmas)
+            count += occurences_samx + occurences_xmas
     return count
+
 
 def generate_subsets(lines, n=4):
     for i in range(len(lines) - n + 1):
-        yield lines[i:i+n]
+        yield lines[i : i + n]
+
 
 def count_vertical():
     lines = get_input()
-    xmas_indices = []  
+    xmas_indices = []
     for subset in generate_subsets(lines):
-        for i in range(len(subset[0])): 
-            word = ''.join(line[i] for line in subset)
+        for i in range(len(subset[0])):
+            word = "".join(line[i] for line in subset)
             if word == "XMAS" or word == "SAMX":
                 xmas_indices.append(i)
 
     return len(xmas_indices)
 
+
 def count_diagonal():
     lines = get_input()
-    xmas_indices = []  
+    xmas_indices = []
     for subset in generate_subsets(lines):
         for i in range(len(subset[0])):
             if i + 3 < len(subset[0]):
-                downward = ''.join(subset[j][i + j] for j in range(4))
+                downward = "".join(subset[j][i + j] for j in range(4))
                 if downward == "XMAS" or downward == "SAMX":
-                    xmas_indices.append(("downward", i))    
+                    xmas_indices.append(("downward", i))
 
             if i - 3 >= 0:
-                upward = ''.join(subset[j][i - j] for j in range(4))
+                upward = "".join(subset[j][i - j] for j in range(4))
                 if upward == "XMAS" or upward == "SAMX":
                     xmas_indices.append(("upward", i))
 
     return len(xmas_indices)
-               
+
 
 def count_x_mas_part_one():
     lines = get_input()
@@ -63,10 +68,10 @@ def count_x_mas_part_one():
     for subset in generate_subsets(lines, n=3):
         for i in range(len(subset[0])):
             if i + 2 < len(subset[0]):
-                downward = ''.join(subset[j][i + j] for j in range(3))
+                downward = "".join(subset[j][i + j] for j in range(3))
                 if downward == "MAS" or downward == "SAM":
                     x = i + 2
-                    upward = ''.join(subset[j][x - j] for j in range(3))
+                    upward = "".join(subset[j][x - j] for j in range(3))
                     if upward == "MAS" or upward == "SAM":
                         xmas_indices.append((i))
 

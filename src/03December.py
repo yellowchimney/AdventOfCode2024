@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-session_cookie = os.getenv('session_cookie')
+session_cookie = os.getenv("session_cookie")
+
 
 def get_input():
     response = requests.get(
