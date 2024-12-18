@@ -12,3 +12,5 @@ Full description of tasks can be found here: https://adventofcode.com/2024
 4.[Day four](src/04December.py)
 
 5.[Day five](src/05December.py)
+
+6.[Day six](src/06December.py)
